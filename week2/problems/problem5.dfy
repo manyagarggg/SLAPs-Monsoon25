@@ -9,9 +9,13 @@ method ReverseNumber(n: int) returns (rev: int)
     var num := n;
     
     while num > 0
-        // TODO: Write loop invariant(s)
+        invariant num >= 0
+        invariant rev * Power(10, NumDigits(num)) + ReverseDigits(num) == ReverseDigits(n)
         decreases num
     {
+        // if num >= 10{
+            // assert ReverseDigits(num) == (num % 10) * Power(10, NumDigits(num) - 1) + ReverseDigits(num/10) by {ReverseDigitsDecomp(num); }
+        // }
         var digit := num % 10;
         rev := rev * 10 + digit;
         num := num / 10;
@@ -38,3 +42,6 @@ function Power(base: int, exp: int): int
 {
     if exp == 0 then 1 else base * Power(base, exp - 1)
 }
+
+// tried to solve for dafny verification but not fully correct 
+
